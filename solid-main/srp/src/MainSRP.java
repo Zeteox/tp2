@@ -5,21 +5,22 @@ public class MainSRP {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        FacturationService service = new FacturationService();
+        FacturationService facturationService = new FacturationService();
+        DevisService devisService = new DevisService();
 
         boolean quitter = false;
 
         while (!quitter) {
             afficherMenu();
 
-            int choix = lireEntier(scanner, "Choix : ");
+            int choix = ScannerReader.lireEntier(scanner, "Choix : ");
 
             switch (choix) {
                 case 1:
-                    traiterDocument(scanner, service, true);
+                    FileTreatmentService.traiterDocument(scanner, facturationService);
                     break;
                 case 2:
-                    traiterDocument(scanner, service, false);
+                    FileTreatmentService.traiterDocument(scanner, devisService);
                     break;
                 case 0:
                     quitter = true;
@@ -38,45 +39,5 @@ public class MainSRP {
         System.out.println("1. Créer une facture");
         System.out.println("2. Créer un devis");
         System.out.println("0. Quitter");
-    }
-
-    private static void traiterDocument(Scanner scanner, FacturationService service, boolean facture) {
-        double montantHT = lireDoublePositif(scanner, "Montant HT : ");
-
-        if (facture) {
-            System.out.print("Nom du client : ");
-            String client = scanner.nextLine().trim();
-            service.creerFacture(montantHT, client);
-        } else {
-            service.creerDevis(montantHT);
-        }
-    }
-
-    private static int lireEntier(Scanner scanner, String message) {
-        while (true) {
-            System.out.print(message);
-            try {
-                int valeur = Integer.parseInt(scanner.nextLine().trim());
-                return valeur;
-            } catch (NumberFormatException e) {
-                System.out.println("Veuillez entrer un nombre entier valide.");
-            }
-        }
-    }
-
-    private static double lireDoublePositif(Scanner scanner, String message) {
-        while (true) {
-            System.out.print(message);
-            try {
-                double valeur = Double.parseDouble(scanner.nextLine().trim());
-                if (valeur < 0) {
-                    System.out.println("Le montant doit être positif.");
-                } else {
-                    return valeur;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Veuillez entrer un nombre valide (ex: 123.45).");
-            }
-        }
     }
 }

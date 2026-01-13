@@ -1,29 +1,26 @@
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 
-public class FacturationService {
-
-    public void creerFacture(double montantHT, String clientName) {
+public class DevisService {
+    public void creerDevis(double montantHT) {
         double tva = montantHT * 0.2;
         double total = montantHT + tva;
 
         // Affichage
-        System.out.println("\n--- FACTURE ---");
+        System.out.println("\n--- DEVIS ---");
         System.out.println("Date : " + LocalDate.now());
-        System.out.println("Client : " + clientName);
         System.out.println("Montant HT : " + montantHT);
         System.out.println("TVA : " + tva);
         System.out.println("Total TTC : " + total);
+        System.out.println("Valable 30 jours");
 
         // Sauvegarde fichier
         SaveService.saveFile(
-                "factures.txt",
-                "FACTURE | " + LocalDate.now()
-                        + " | Client=" + clientName
+                "devis.txt",
+                "DEVIS | " + LocalDate.now()
                         + " | HT=" + montantHT
                         + " | TVA=" + tva
-                        + " | TTC=" + total + "\n"
+                        + " | TTC=" + total
+                        + " | validite=30j\n"
         );
     }
 }
