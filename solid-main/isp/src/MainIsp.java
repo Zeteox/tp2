@@ -32,7 +32,7 @@ public class MainIsp {
             }
 
             try {
-                executerFonction(machine, fonction);
+                machine.executerFonction(fonction);
             } catch (UnsupportedOperationException e) {
                 System.out.println("Fonctionnalité non supportée par cette machine");
             }
@@ -41,14 +41,7 @@ public class MainIsp {
         scanner.close();
     }
 
-    private static void executerFonction(Machine machine, int fonction) {
-        switch (fonction) {
-            case 1: machine.print(); break;
-            case 2: machine.scan(); break;
-            case 3: machine.fax(); break;
-            default: System.out.println("Fonction inconnue");
-        }
-    }
+
 
     private static int lireEntier(Scanner scanner) {
         while (true) {
