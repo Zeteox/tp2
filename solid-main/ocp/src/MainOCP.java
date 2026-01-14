@@ -1,10 +1,14 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainOCP {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        CalculateurRemise calculateur = new CalculateurRemise();
+        ArrayList<CalculateurRemise> calculateurs = new ArrayList<>();
+        calculateurs.add(new StandardClientPaymentService());
+        calculateurs.add(new StudentClientPaymentService());
+        calculateurs.add(new VIPClientPaymentService());
 
         boolean quitter = false;
 
@@ -22,11 +26,15 @@ public class MainOCP {
                 quitter = true;
                 continue;
             }
+            if (choix < 1 || choix > calculateurs.size()) {
+                System.out.println("Choix invalide -> client standard.");
+                choix = 1;
+            }
 
             System.out.print("Montant HT : ");
             double montant = lireDouble(scanner);
 
-            double total = calculateur.calculerTotal(choix, montant);
+            double total = calculateurs.get(choix-1).calculerTotal(montant);
             System.out.println("Montant après remise : " + total);
         }
 
