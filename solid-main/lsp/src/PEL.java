@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.Scanner;
 
 public class PEL extends CompteBancaire {
     private final double tauxInteret = 0.03;
@@ -17,16 +18,24 @@ public class PEL extends CompteBancaire {
         for (int i = 0; i < nbAnnees; i++) {
             solde += solde * tauxInteret;
         }
-        System.out.println("solde PEL : " + solde);
     }
-
 
     @Override
     public void retirer(double montant) {
-        System.out.println(dateDebut);
-        System.out.println(dateFin);
+        System.out.println("solde PEL : " + solde);
         if (!(new Date().before(dateFin))) {
-            super.retirer(montant);
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("voulez-vous retirer [y/N]: ");
+            String choix = scanner.nextLine();
+
+            if (choix.equals("y")) {
+                System.out.println("Retrait accepté. Vous avez retiré : " + this.solde);
+                super.retirer(this.solde);
+            }   else {
+                System.out.println("Retrait annulé.");
+            }
+
+            scanner.close();
             return;
         }
         System.out.println("Impossible de retirer d'un PEL avant la date d'échéance.");

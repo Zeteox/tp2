@@ -20,7 +20,7 @@ public class MainOCP {
             System.out.println("0. Quitter");
             System.out.print("Choix : ");
 
-            int choix = lireEntier(scanner);
+            int choix = ScannerReader.lireEntier(scanner);
 
             if (choix == 0) {
                 quitter = true;
@@ -32,7 +32,7 @@ public class MainOCP {
             }
 
             System.out.print("Montant HT : ");
-            double montant = lireDouble(scanner);
+            double montant = ScannerReader.lireDouble(scanner);
 
             double total = calculateurs.get(choix-1).calculerTotal(montant);
             System.out.println("Montant après remise : " + total);
@@ -41,23 +41,4 @@ public class MainOCP {
         scanner.close();
     }
 
-    private static int lireEntier(Scanner scanner) {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.print("Entrée invalide. Recommencez : ");
-            }
-        }
-    }
-
-    private static double lireDouble(Scanner scanner) {
-        while (true) {
-            try {
-                return Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.print("Entrée invalide. Recommencez : ");
-            }
-        }
-    }
 }
