@@ -5,25 +5,20 @@ import java.time.LocalDate;
 public class FacturationService {
 
     public void creerFacture(double montantHT, String clientName) {
-        double tva = montantHT * 0.2;
-        double total = montantHT + tva;
+        Facture facture = new Facture(LocalDate.now(), clientName, montantHT);
 
         // Affichage
         System.out.println("\n--- FACTURE ---");
-        System.out.println("Date : " + LocalDate.now());
-        System.out.println("Client : " + clientName);
-        System.out.println("Montant HT : " + montantHT);
-        System.out.println("TVA : " + tva);
-        System.out.println("Total TTC : " + total);
+        System.out.println("Date : " + facture.getDate());
+        System.out.println("Client : " + facture.getClientName());
+        System.out.println("Montant HT : " + facture.getMontantHT());
+        System.out.println("TVA : " + facture.getTva());
+        System.out.println("Total TTC : " + facture.getTotalTTC());
 
         // Sauvegarde fichier
         SaveService.saveFile(
-                "factures.txt",
-                "FACTURE | " + LocalDate.now()
-                        + " | Client=" + clientName
-                        + " | HT=" + montantHT
-                        + " | TVA=" + tva
-                        + " | TTC=" + total + "\n"
+            "factures.txt",
+            facture
         );
     }
 }

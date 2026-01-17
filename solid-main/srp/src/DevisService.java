@@ -2,25 +2,20 @@ import java.time.LocalDate;
 
 public class DevisService {
     public void creerDevis(double montantHT) {
-        double tva = montantHT * 0.2;
-        double total = montantHT + tva;
+        Devis devis = new Devis(LocalDate.now(), montantHT, "30j");
 
         // Affichage
         System.out.println("\n--- DEVIS ---");
-        System.out.println("Date : " + LocalDate.now());
-        System.out.println("Montant HT : " + montantHT);
-        System.out.println("TVA : " + tva);
-        System.out.println("Total TTC : " + total);
-        System.out.println("Valable 30 jours");
+        System.out.println("Date : " + devis.getDate());
+        System.out.println("Montant HT : " + devis.getMontantHT());
+        System.out.println("TVA : " + devis.getTva());
+        System.out.println("Total TTC : " + devis.getTotalTTC());
+        System.out.println("Valable " + devis.getValidite());
 
         // Sauvegarde fichier
         SaveService.saveFile(
                 "devis.txt",
-                "DEVIS | " + LocalDate.now()
-                        + " | HT=" + montantHT
-                        + " | TVA=" + tva
-                        + " | TTC=" + total
-                        + " | validite=30j\n"
+                devis
         );
     }
 }
