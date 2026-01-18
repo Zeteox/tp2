@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class MainIsp {
@@ -14,7 +15,7 @@ public class MainIsp {
             System.out.println("0. Quitter");
             System.out.print("Choix fonctionnalité : ");
 
-            int fonction = lireEntier(scanner);
+            int fonction = ScannerReader.lireEntier(scanner);
             if (fonction == 0) break;
 
             System.out.println("\nChoisir la machine :");
@@ -22,7 +23,7 @@ public class MainIsp {
             System.out.println("2. Imprimante multifonction");
             System.out.print("Choix machine : ");
 
-            int machineChoisie = lireEntier(scanner);
+            int machineChoisie = ScannerReader.lireEntier(scanner);
 
             Machine machine;
             if (machineChoisie == 2) {
@@ -39,17 +40,5 @@ public class MainIsp {
         }
 
         scanner.close();
-    }
-
-
-
-    private static int lireEntier(Scanner scanner) {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.print("Entrée invalide : ");
-            }
-        }
     }
 }

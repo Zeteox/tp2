@@ -1,18 +1,16 @@
 public class NotificationService {
+    private final NotificationFactory factory;
+
+    public NotificationService(NotificationFactory factory) {
+        this.factory = factory;
+    }
 
     public void envoyer(String message, int choix) {
-
-        if (choix == 1) {
-            EmailSender sender = new EmailSender();
+        try {
+            NotificationInterface sender = factory.createNotification(choix);
             sender.send(message);
-
-        } else if (choix == 2) {
-            SmsSender sender = new SmsSender();
-            sender.send(message);
-
-        } else if (choix == 3) {
-            PushNotificationSender sender = new PushNotificationSender();
-            sender.send(message);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erreur : " + e.getMessage());
         }
     }
 }
