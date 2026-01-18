@@ -5,8 +5,12 @@ public class MainSRP {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        FacturationService facturationService = new FacturationService();
-        DevisService devisService = new DevisService();
+
+        DocumentDisplayer displayer = new DocumentDisplayer();
+        FileRepository fileRepository = new FileRepository();
+
+        FacturationService facturationService = new FacturationService(displayer, fileRepository);
+        DevisService devisService = new DevisService(displayer, fileRepository);
 
         boolean quitter = false;
 
